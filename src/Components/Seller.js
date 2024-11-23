@@ -33,20 +33,12 @@ function Sellers() {
   const { addSellerLoading, addSellerMessage, addSellerError } = useSelector(
     (state) => state.addSellerReducer
   );
+
+const [searchValue,setSearchValue]= useState(null)
+  
   const { pauseSellerLoading, pauseSellerError, pauseSellerMessage } =
     useSelector((state) => state.pauseSellerReducer);
-  // const sellers = [
-  //   { name: "Automotive", id: "A22NDRL29NJ355", active: true },
-  //   { name: "electronics", id: "A5W198TSQJIXA", active: true },
-  //   { name: "Jalomane LLC", id: "A3UC9NK1EXG1OP", active: true },
-  //   { name: "Equity With Vision", id: "AKGBUC00BLMHW", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  // ];
+
 
   const toggleBookmark = (index) => {
     setBookmarked((prev) => ({
@@ -122,6 +114,18 @@ function Sellers() {
   const handlePauseSeller = (id) => {
     dispatch(pauseSellerAction(id));
   };
+
+
+  useEffect(()=>{
+  },[searchValue])
+  
+  const filteredSellers = searchValue
+  ? sellers.filter((seller) =>
+      seller.sellerName.toLowerCase().includes(searchValue.toLowerCase()) ||
+      seller.sellerId.toLowerCase().includes(searchValue.toLowerCase())
+    )
+  : sellers;
+
   return (
     <div
       className="relative flex flex-col w-full h-full bg-gray-50"
@@ -216,6 +220,7 @@ function Sellers() {
               type="text"
               placeholder="Search"
               className="w-full h-10 border-none outline-none px-2 text-sm"
+              onChange={(e)=>setSearchValue(e.target.value)}
             />
           </div>
 
@@ -259,7 +264,7 @@ function Sellers() {
 
         {/* Sellers List */}
         <div className="flex flex-col flex-grow px-3 py-4 overflow-y-auto max-h-[calc(100vh-150px)] scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thumb-rounded-md">
-          {sellers.map((seller, index) => (
+          {filteredSellers.map((seller, index) => (
             <div
               key={index}
               onClick={() => setActiveCard(index)}
