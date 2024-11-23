@@ -118,7 +118,6 @@ const [searchValue,setSearchValue]= useState(null)
 
   useEffect(()=>{
   },[searchValue])
-  
   const filteredSellers = searchValue
   ? sellers.filter((seller) =>
       seller.sellerName.toLowerCase().includes(searchValue.toLowerCase()) ||
