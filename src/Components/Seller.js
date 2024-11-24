@@ -43,8 +43,12 @@ function Sellers() {
   const { addSellerLoading, addSellerMessage, addSellerError } = useSelector(
     (state) => state.addSellerReducer
   );
+
+const [searchValue,setSearchValue]= useState(null)
+  
   const { pauseSellerLoading, pauseSellerError, pauseSellerMessage } =
     useSelector((state) => state.pauseSellerReducer);
+
 
   const toggleBookmark = (index) => {
     setBookmarked((prev) => ({
@@ -131,6 +135,15 @@ function Sellers() {
   const handleSubmenuClose = () => {
     setSubmenuAnchorEl(null);
   };
+
+  useEffect(()=>{
+  },[searchValue])
+  const filteredSellers = searchValue
+  ? sellers.filter((seller) =>
+      seller.sellerName.toLowerCase().includes(searchValue.toLowerCase()) ||
+      seller.sellerId.toLowerCase().includes(searchValue.toLowerCase())
+    )
+  : sellers;
 
   return (
     <div
@@ -226,6 +239,7 @@ function Sellers() {
               type="text"
               placeholder="Search"
               className="w-full h-10 border-none outline-none px-2 text-sm"
+              onChange={(e)=>setSearchValue(e.target.value)}
             />
           </div>
 
@@ -269,7 +283,7 @@ function Sellers() {
 
         {/* Sellers List */}
         <div className="flex flex-col flex-grow px-3 py-4 overflow-y-auto max-h-[calc(100vh-150px)] scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thumb-rounded-md">
-          {sellers.map((seller, index) => (
+          {filteredSellers.map((seller, index) => (
             <div
               key={index}
               onClick={() => setActiveCard(index)}

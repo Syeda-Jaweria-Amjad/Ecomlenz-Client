@@ -63,8 +63,9 @@ const addSellerReducer = createReducer(
         state.addSellerLoading = false;
         state.addSellerError = action.payload;
       })
-      .addCase("CLEAR_ERRROS", (state) => {
+      .addCase("CLEAR_ERRORS", (state) => {
         state.addSellerError = "";
+        state.addSellerMessage = "";
         state.addSellerLoading = false;
       });
   }
@@ -90,11 +91,13 @@ const pauseSellerReducer = createReducer(
       })
       .addCase("CLEAR_ERRORS", (state) => {
         state.pauseSellerError = "";
+        state.pauseSellerMessage = "";
         state.pauseSellerLoading = false;
       });
   }
 );
 
+<<<<<<< HEAD
 const editSellerReducer = createReducer(
   {
     editSellerLoading: false,
@@ -119,10 +122,35 @@ const editSellerReducer = createReducer(
       .addCase("CLEAR_ERRORS", (state) => {
         state.editSellerMessage = null;
         state.editSellerError = null;
+=======
+const loadUserSavedSellersReducer = createReducer(
+  {
+    userSavedSellerLoading: false,
+    userSavedSellers: null,
+    userSavedSellersError: null,
+  },
+  (builder) => {
+    builder
+      .addCase("LOAD_USER_SAVED_SELLERS_REQUEST", (state) => {
+        state.userSavedSellerLoading = true;
+      })
+      .addCase("LOAD_USER_SAVED_SELLERS_SUCCESS", (state, action) => {
+        state.userSavedSellerLoading = false;
+        state.userSavedSellers = action.payload;
+      })
+      .addCase("LOAD_USER_SAVED_SELLERS_ERROR", (state, action) => {
+        state.userSavedSellerLoading = false;
+        state.userSavedSellersError = action.payload;
+      })
+      .addCase("CLEAR_ERRROS", (state) => {
+        state.userSavedSellersError = null;
+        state.userSavedSellerLoading = false;
+>>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
       });
   }
 );
 
+<<<<<<< HEAD
 const deleteSellerReducer = createReducer(
   {
     deleteSellerLoading: false,
@@ -151,11 +179,117 @@ const deleteSellerReducer = createReducer(
   }
 );
 
+=======
+const changePasswordReducer = createReducer(
+  {
+    changePasswordLoading: false,
+    changePasswordMessage: "",
+    changePasswordError: "",
+  },
+  (builder) => {
+    builder
+      .addCase("CHANGE_PASSWORD_REQUEST", (state) => {
+        state.changePasswordLoading = true;
+      })
+      .addCase("CHANGE_PASSWORD_SUCCESS", (state, action) => {
+        state.changePasswordLoading = false;
+        state.changePasswordMessage = action.payload;
+      })
+      .addCase("CHANGE_PASSWORD_ERROR", (state, action) => {
+        state.changePasswordLoading = false;
+        state.changePasswordError = action.payload;
+      })
+      .addCase("CLEAR_ERRORS", (state) => {
+        state.changePasswordError = "";
+        state.changePasswordMessage = "";
+        state.changePasswordLoading = false;
+      });
+  }
+);
+const editProfileReducer = createReducer(
+  { editProfileLoading: false, editProfileMessage: "", editProfileError: "" },
+  (builder) => {
+    builder
+      .addCase("EDIT_PROFILE_REQUEST", (state) => {
+        state.editProfileLoading = true;
+      })
+      .addCase("EDIT_PROFILE_SUCCESS", (state, action) => {
+        state.editProfileLoading = false;
+        state.editProfileMessage = action.payload;
+      })
+      .addCase("EDIT_PROFILE_ERROR", (state, action) => {
+        state.editProfileLoading = false;
+        state.editProfileError = action.payload;
+      })
+      .addCase("CLEAR_ERRORS", (state) => {
+        state.editProfileError = "";
+        state.editProfileMessage = "";
+        state.editProfileLoading = false;
+      });
+  }
+);
+const markAsReadAllProductsReducer = createReducer(
+  {
+    readAllProductsLoading: false,
+    readAllProductsMessage: "",
+    readAllProductsError: "",
+  },
+  (builder) => {
+    builder
+      .addCase("MARK_AS_READ_ALL_PRODUCTS_REQUEST", (state) => {
+        state.readAllProductsLoading = true;
+      })
+      .addCase("MARK_AS_READ_ALL_PRODUCTS_SUCCESS", (state, action) => {
+        state.readAllProductsLoading = false;
+        state.readAllProductsMessage = action.payload;
+      })
+      .addCase("MARK_AS_READ_ALL_PRODUCTS_ERROR", (state, action) => {
+        state.readAllProductsLoading = false;
+        state.readAllProductsError = action.payload;
+      })
+      .addCase("CLEAR_ERRORS", (state) => {
+        state.readAllProductsError = "";
+        state.readAllProductsMessage = "";
+        state.readAllProductsLoading = false;
+      });
+  }
+);
+const saveSellerReducer = createReducer(
+  { saveSellerLoading: false, saveSellerMessage: "", saveSellerError: "" },
+  (builder) => {
+    builder
+      .addCase("SAVE_SELLER_REQUEST", (state) => {
+        state.saveSellerLoading = true;
+      })
+      .addCase("SAVE_SELLER_SUCCESS", (state, action) => {
+        state.saveSellerLoading = false;
+        state.saveSellerMessage = action.payload;
+      })
+      .addCase("SAVE_SELLER_ERROR", (state, action) => {
+        state.saveSellerLoading = false;
+        state.saveSellerError = action.payload;
+      })
+      .addCase("CLEAR_ERRORS", (state) => {
+        state.saveSellerError = "";
+        state.saveSellerMessage = "";
+        state.saveSellerLoading = false;
+      });
+  }
+);
+>>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
 export {
   loadCurrentUserReducer,
   loadUserAllSellersReducer,
   addSellerReducer,
   pauseSellerReducer,
+<<<<<<< HEAD
   editSellerReducer,
   deleteSellerReducer
+=======
+  loadUserSavedSellersReducer,
+  changePasswordReducer,
+  editProfileReducer,
+  markAsReadAllProductsReducer,
+  saveSellerReducer,
+>>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
 };
