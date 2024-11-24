@@ -57,11 +57,8 @@ const EditProfileModal = () => {
 
   return (
     <div>
-<<<<<<< HEAD
-=======
       <Toaster />
       {/* Edit Profile button */}
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
       <div
         className="text-md font-semibold text-gray-700 hover:underline cursor-pointer"
         onClick={toggleModal}
