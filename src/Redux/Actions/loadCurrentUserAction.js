@@ -94,7 +94,6 @@ const pauseSellerAction = (id) => async (dispatch) => {
     });
   }
 };
-<<<<<<< HEAD
 
 const editSellerAction = (sellerId, sellerName) => async (dispatch) => {
   try {
@@ -119,7 +118,10 @@ const editSellerAction = (sellerId, sellerName) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "EDIT_SELLER_ERROR",
-=======
+      payload: error.message || "Server connection error",
+    });
+  }
+};
 const loadUserSavedSellersAction = () => async (dispatch) => {
   try {
     dispatch({
@@ -140,13 +142,11 @@ const loadUserSavedSellersAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "LOAD_USER_SAVED_SELLERS_ERROR",
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
       payload: error.message || "Server connection error",
     });
   }
 };
 
-<<<<<<< HEAD
 const deleteSellerAction = (sellerId) => async (dispatch) => {
   try {
     dispatch({ type: "DELETE_SELLER_REQUEST" });
@@ -160,7 +160,7 @@ const deleteSellerAction = (sellerId) => async (dispatch) => {
         credentials: "include",
       }
     );
-    
+
     const data = await response.json();
     if (response.ok) {
       dispatch({ type: "DELETE_SELLER_SUCCESS", payload: data.message });
@@ -170,7 +170,10 @@ const deleteSellerAction = (sellerId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "DELETE_SELLER_ERROR",
-=======
+      payload: error.message || "Server connection error",
+    });
+  }
+};
 const changePasswordAction = (data) => async (dispatch) => {
   try {
     dispatch({
@@ -192,14 +195,11 @@ const changePasswordAction = (data) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "CHANGE_PASSWORD_ERROR",
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
       payload: error.message || "Server connection error",
     });
   }
 };
 
-<<<<<<< HEAD
-=======
 const editProfileAction = (data) => async (dispatch) => {
   try {
     dispatch({
@@ -268,21 +268,17 @@ const saveSellerAction = (id) => async (dispatch) => {
     });
   }
 };
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
 export {
   loadCurrentUserAction,
   clearErrorsAction,
   loadUserAllSellersAction,
   addSellerAction,
   pauseSellerAction,
-<<<<<<< HEAD
   editSellerAction,
-  deleteSellerAction
-=======
+  deleteSellerAction,
   loadUserSavedSellersAction,
   changePasswordAction,
   editProfileAction,
   markAsReadAllProductsAction,
   saveSellerAction,
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
 };

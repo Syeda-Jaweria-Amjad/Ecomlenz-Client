@@ -11,7 +11,10 @@ import {
   saveSellerReducer,
 } from "./Reducers/loadCurrentUserReducer";
 import { clearErrorsAction } from "./Actions/loadCurrentUserAction";
-import { editSellerReducer,deleteSellerReducer } from "./Reducers/loadCurrentUserReducer";
+import {
+  editSellerReducer,
+  deleteSellerReducer,
+} from "./Reducers/loadCurrentUserReducer";
 
 const store = configureStore({
   reducer: {
@@ -20,16 +23,13 @@ const store = configureStore({
     loadUserAllSellersReducer,
     addSellerReducer,
     pauseSellerReducer,
-<<<<<<< HEAD
     editSeller: editSellerReducer,
-    deleteSellerReducer
-=======
+    deleteSellerReducer,
     loadUserSavedSellersReducer,
     changePasswordReducer,
     editProfileReducer,
     markAsReadAllProductsReducer,
     saveSellerReducer,
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
   },
 });
 
