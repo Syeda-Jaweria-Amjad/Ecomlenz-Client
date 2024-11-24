@@ -120,8 +120,9 @@ const editSellerAction = (sellerId, sellerName) => async (dispatch) => {
       type: "EDIT_SELLER_ERROR",
       payload: error.message || "Server connection error",
     })
+    }
   }
-};
+
 const loadUserSavedSellersAction = () => async (dispatch) => {
   try {
     dispatch({
@@ -160,7 +161,7 @@ const deleteSellerAction = (sellerId) => async (dispatch) => {
         credentials: "include",
       }
     );
-    
+
     const data = await response.json();
     if (response.ok) {
       dispatch({ type: "DELETE_SELLER_SUCCESS", payload: data.message });

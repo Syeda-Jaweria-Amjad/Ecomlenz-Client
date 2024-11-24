@@ -11,7 +11,10 @@ import {
   saveSellerReducer,
 } from "./Reducers/loadCurrentUserReducer";
 import { clearErrorsAction } from "./Actions/loadCurrentUserAction";
-import { editSellerReducer,deleteSellerReducer } from "./Reducers/loadCurrentUserReducer";
+import {
+  editSellerReducer,
+  deleteSellerReducer,
+} from "./Reducers/loadCurrentUserReducer";
 
 const store = configureStore({
   reducer: {

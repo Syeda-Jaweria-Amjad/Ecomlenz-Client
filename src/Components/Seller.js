@@ -23,10 +23,6 @@ import {
 import { Toaster } from "react-hot-toast";
 import Loader from "./Loader";
 
-
-
-
-
 function Sellers() {
   const [submenuAnchorEl, setSubmenuAnchorEl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,11 +40,10 @@ function Sellers() {
     (state) => state.addSellerReducer
   );
 
-const [searchValue,setSearchValue]= useState(null)
-  
+  const [searchValue, setSearchValue] = useState(null);
+
   const { pauseSellerLoading, pauseSellerError, pauseSellerMessage } =
     useSelector((state) => state.pauseSellerReducer);
-
 
   const toggleBookmark = (index) => {
     setBookmarked((prev) => ({
@@ -91,7 +86,6 @@ const [searchValue,setSearchValue]= useState(null)
     dispatch(loadUserAllSellersAction());
   }, [dispatch]);
   const [id, setId] = useState(null);
-
 
   const handleAddSeller = () => {
     if (!id) {
@@ -136,14 +130,14 @@ const [searchValue,setSearchValue]= useState(null)
     setSubmenuAnchorEl(null);
   };
 
-  useEffect(()=>{
-  },[searchValue])
+  useEffect(() => {}, [searchValue]);
   const filteredSellers = searchValue
-  ? sellers.filter((seller) =>
-      seller.sellerName.toLowerCase().includes(searchValue.toLowerCase()) ||
-      seller.sellerId.toLowerCase().includes(searchValue.toLowerCase())
-    )
-  : sellers;
+    ? sellers.filter(
+        (seller) =>
+          seller.sellerName.toLowerCase().includes(searchValue.toLowerCase()) ||
+          seller.sellerId.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    : sellers;
 
   return (
     <div
@@ -239,7 +233,7 @@ const [searchValue,setSearchValue]= useState(null)
               type="text"
               placeholder="Search"
               className="w-full h-10 border-none outline-none px-2 text-sm"
-              onChange={(e)=>setSearchValue(e.target.value)}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
 
@@ -283,117 +277,86 @@ const [searchValue,setSearchValue]= useState(null)
 
         {/* Sellers List */}
         <div className="flex flex-col flex-grow px-3 py-4 overflow-y-auto max-h-[calc(100vh-150px)] scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thumb-rounded-md">
-          {filteredSellers.map((seller, index) => (
-            <div
-              key={index}
-              onClick={() => setActiveCard(index)}
-              className={`relative flex items-center justify-between py-3 px-4 bg-white border rounded-md mt-3 hover:shadow-md ${
-                activeCard === index ? "border-black" : "border-gray-300"
-              }`}
-            >
-              <button
-                onClick={(e) => handleMenuOpen(e, index)}
-                className="absolute top-4 right-4 rounded-md px-1 py-1 border border-gray-200"
+          {filteredSellers.length > 0 ? (
+            filteredSellers.map((seller, index) => (
+              <div
+                key={index}
+                onClick={() => setActiveCard(index)}
+                className={`relative flex items-center justify-between py-3 px-4 bg-white border rounded-md mt-3 hover:shadow-md ${
+                  activeCard === index ? "border-black" : "border-gray-300"
+                }`}
               >
-                <CiMenuKebab />
-              </button>
-              {/* Material-UI Dropdown */}
-              <Menu
-                anchorEl={menuAnchorEl}
-                open={Boolean(menuAnchorEl) && activeCard === index}
-                onClose={handleMenuClose}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-              >
-               <MenuItem> <SellerDetailsModal onClose={handleMenuClose} SellerName={seller.sellerName} 
-                SellerID={seller.sellerId} /> </MenuItem>
-               
-               {/* Edit Seller */}
-               <MenuItem> <EditSellerModal onClose={handleMenuClose} SellerName={seller?.sellerName} 
-                SellerID={seller?._id} /></MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleMenuClose();
-                    handlePauseSeller(seller?.sellerId);
+                <button
+                  onClick={(e) => handleMenuOpen(e, index)}
+                  className="absolute top-4 right-4 rounded-md px-1 py-1 border border-gray-200"
+                >
+                  <CiMenuKebab />
+                </button>
+                {/* Material-UI Dropdown */}
+                <Menu
+                  anchorEl={menuAnchorEl}
+                  open={Boolean(menuAnchorEl) && activeCard === index}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                 >
-                  {seller.pauseStatus.status
-                    ? "Resume Seller"
-                    : "Pause Seller "}
-                </MenuItem>
-
-                {/* status bar */}
-                <MenuItem
-          onMouseEnter={handleSubmenuOpen}
-          onMouseLeave={handleSubmenuClose}
-        >
-          In Another Tab
-          <Menu
-            anchorEl={submenuAnchorEl}
-            open={Boolean(submenuAnchorEl)}
-            onClose={handleSubmenuClose}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }} >
-            <MenuItem onClick={() => window.open(`https://www.amazon.com/sp?ie=UTF8&seller=${seller.sellerId}`, "_blank")}>
-              Amazon
-            </MenuItem>
-            <MenuItem onClick={() => window.open(`https://keepa.com/#!seller/1-${seller.sellerId}`, "_blank")}>
-              Keepa
-            </MenuItem>
-            <MenuItem onClick={() => window.open(`https://sas.selleramp.com/sas/lookup?search_term=https%253A%252F%252Fwww.amazon.com%252Fs%253Fi%253Dmerchant-items%2526me%${seller.sellerId}`, "_blank")}>
-              AMP
-            </MenuItem>
-          </Menu>
-        </MenuItem>
-
-                {/* Delete  */}
-                <MenuItem> <DeleteModal onClose={handleMenuClose} SellerName={seller.sellerName} 
-                SellerID={seller?._id} /> </MenuItem>
-              </Menu>
-
-              {/* Seller details */}
-              <div>
-                <div className="text-gray-800 font-semibold">
-                  {seller.sellerName}
-                </div>
-                <div className="text-sm text-gray-500">{seller.sellerId}</div>
-                <div className="mt-1 flex items-center">
-                  <span
-                    className="cursor-pointer text-lg px-1 py-1 border border-gray-300 rounded-md"
-                    onClick={() => toggleBookmark(index)}
+                  <MenuItem
+                    onClick={() => {
+                      handleMenuClose();
+                      handlePauseSeller(seller?.sellerId);
+                    }}
                   >
-                    {bookmarked[index] ? (
-                      <FaBookmark className="text-black" />
-                    ) : (
-                      <FaRegBookmark className="text-gray-500" />
-                    )}
-                  </span>
-                  <div className="shadow px-3 py-1 ml-3 flex justify-center items-center border border-gray-300 rounded-lg">
-                    <span>
-                      <FaRegSquare className="text-xs rounded-md bg-[rgb(247,254,231)]" />
+                    {seller.pauseStatus.status
+                      ? "Resume Seller"
+                      : "Pause Seller"}
+                  </MenuItem>
+                  <MenuItem onClick={handleMenuClose}>About</MenuItem>
+                </Menu>
+
+                {/* Seller details */}
+                <div>
+                  <div className="text-gray-800 font-semibold">
+                    {seller.sellerName}
+                  </div>
+                  <div className="text-sm text-gray-500">{seller.sellerId}</div>
+                  <div className="mt-1 flex items-center">
+                    <span
+                      className="cursor-pointer text-lg px-1 py-1 border border-gray-300 rounded-md"
+                      onClick={() => toggleBookmark(index)}
+                    >
+                      {bookmarked[index] ? (
+                        <FaBookmark className="text-black" />
+                      ) : (
+                        <FaRegBookmark className="text-gray-500" />
+                      )}
                     </span>
-                    <span className="text-sm text-gray-700 ml-2">
-                      {seller && seller.pauseStatus.status
-                        ? "Paused"
-                        : "Active"}
-                    </span>
+                    <div className="shadow px-3 py-1 ml-3 flex justify-center items-center border border-gray-300 rounded-lg">
+                      <span>
+                        <FaRegSquare className="text-xs rounded-md bg-[rgb(247,254,231)]" />
+                      </span>
+                      <span className="text-sm text-gray-700 ml-2">
+                        {seller && seller.pauseStatus.status
+                          ? "Paused"
+                          : "Active"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="flex justify-center items-center py-10">
+              <span className="text-gray-500 text-sm font-semibold">
+                No data found
+              </span>
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>
