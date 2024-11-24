@@ -97,7 +97,6 @@ const pauseSellerReducer = createReducer(
   }
 );
 
-<<<<<<< HEAD
 const editSellerReducer = createReducer(
   {
     editSellerLoading: false,
@@ -122,7 +121,9 @@ const editSellerReducer = createReducer(
       .addCase("CLEAR_ERRORS", (state) => {
         state.editSellerMessage = null;
         state.editSellerError = null;
-=======
+      })
+    });
+
 const loadUserSavedSellersReducer = createReducer(
   {
     userSavedSellerLoading: false,
@@ -145,12 +146,10 @@ const loadUserSavedSellersReducer = createReducer(
       .addCase("CLEAR_ERRROS", (state) => {
         state.userSavedSellersError = null;
         state.userSavedSellerLoading = false;
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
       });
   }
 );
 
-<<<<<<< HEAD
 const deleteSellerReducer = createReducer(
   {
     deleteSellerLoading: false,
@@ -179,7 +178,6 @@ const deleteSellerReducer = createReducer(
   }
 );
 
-=======
 const changePasswordReducer = createReducer(
   {
     changePasswordLoading: false,
@@ -276,20 +274,16 @@ const saveSellerReducer = createReducer(
       });
   }
 );
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
 export {
   loadCurrentUserReducer,
   loadUserAllSellersReducer,
   addSellerReducer,
   pauseSellerReducer,
-<<<<<<< HEAD
   editSellerReducer,
-  deleteSellerReducer
-=======
+  deleteSellerReducer,
   loadUserSavedSellersReducer,
   changePasswordReducer,
   editProfileReducer,
   markAsReadAllProductsReducer,
   saveSellerReducer,
->>>>>>> ed3f83727f90cb245f74035b1c207d7d904ba5b0
 };
