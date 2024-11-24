@@ -5,6 +5,10 @@ import { CiMenuKebab } from "react-icons/ci";
 import SellersModal from "./Sellermodal";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import EditSellerModal from "./EditModel/EditSellerModal";
+import DeleteModal from "./DeleteModal/DeleteModal";
+import SellerDetailsModal from "./SellerDetailsModal/SellerDetailsModal";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   addSellerAction,
@@ -18,7 +22,13 @@ import {
 } from "./ToastMessages/ToastMessage";
 import { Toaster } from "react-hot-toast";
 import Loader from "./Loader";
+
+
+
+
+
 function Sellers() {
+  const [submenuAnchorEl, setSubmenuAnchorEl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
   const [addSellerDropdownOpen, setAddSellerDropdownOpen] = useState(false);
@@ -35,18 +45,6 @@ function Sellers() {
   );
   const { pauseSellerLoading, pauseSellerError, pauseSellerMessage } =
     useSelector((state) => state.pauseSellerReducer);
-  // const sellers = [
-  //   { name: "Automotive", id: "A22NDRL29NJ355", active: true },
-  //   { name: "electronics", id: "A5W198TSQJIXA", active: true },
-  //   { name: "Jalomane LLC", id: "A3UC9NK1EXG1OP", active: true },
-  //   { name: "Equity With Vision", id: "AKGBUC00BLMHW", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  //   { name: "Northcoast Renaissance", id: "A3FWN2PWW18RS", active: true },
-  // ];
 
   const toggleBookmark = (index) => {
     setBookmarked((prev) => ({
@@ -81,6 +79,7 @@ function Sellers() {
 
   const handleMenuClose = () => {
     setMenuAnchorEl(null); // Close the dropdown
+    setSubmenuAnchorEl(null);
   };
 
   useEffect(() => {
@@ -88,6 +87,8 @@ function Sellers() {
     dispatch(loadUserAllSellersAction());
   }, [dispatch]);
   const [id, setId] = useState(null);
+
+
   const handleAddSeller = () => {
     if (!id) {
       alert("Please enter a seller ID");
@@ -122,6 +123,15 @@ function Sellers() {
   const handlePauseSeller = (id) => {
     dispatch(pauseSellerAction(id));
   };
+
+  const handleSubmenuOpen = (event) => {
+    setSubmenuAnchorEl(event.currentTarget);
+  };
+
+  const handleSubmenuClose = () => {
+    setSubmenuAnchorEl(null);
+  };
+
   return (
     <div
       className="relative flex flex-col w-full h-full bg-gray-50"
@@ -287,6 +297,12 @@ function Sellers() {
                   horizontal: "right",
                 }}
               >
+               <MenuItem> <SellerDetailsModal onClose={handleMenuClose} SellerName={seller.sellerName} 
+                SellerID={seller.sellerId} /> </MenuItem>
+               
+               {/* Edit Seller */}
+               <MenuItem> <EditSellerModal onClose={handleMenuClose} SellerName={seller?.sellerName} 
+                SellerID={seller?._id} /></MenuItem>
                 <MenuItem
                   onClick={() => {
                     handleMenuClose();
@@ -297,7 +313,40 @@ function Sellers() {
                     ? "Resume Seller"
                     : "Pause Seller "}
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>About</MenuItem>
+
+                {/* status bar */}
+                <MenuItem
+          onMouseEnter={handleSubmenuOpen}
+          onMouseLeave={handleSubmenuClose}
+        >
+          In Another Tab
+          <Menu
+            anchorEl={submenuAnchorEl}
+            open={Boolean(submenuAnchorEl)}
+            onClose={handleSubmenuClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }} >
+            <MenuItem onClick={() => window.open(`https://www.amazon.com/sp?ie=UTF8&seller=${seller.sellerId}`, "_blank")}>
+              Amazon
+            </MenuItem>
+            <MenuItem onClick={() => window.open(`https://keepa.com/#!seller/1-${seller.sellerId}`, "_blank")}>
+              Keepa
+            </MenuItem>
+            <MenuItem onClick={() => window.open(`https://sas.selleramp.com/sas/lookup?search_term=https%253A%252F%252Fwww.amazon.com%252Fs%253Fi%253Dmerchant-items%2526me%${seller.sellerId}`, "_blank")}>
+              AMP
+            </MenuItem>
+          </Menu>
+        </MenuItem>
+
+                {/* Delete  */}
+                <MenuItem> <DeleteModal onClose={handleMenuClose} SellerName={seller.sellerName} 
+                SellerID={seller?._id} /> </MenuItem>
               </Menu>
 
               {/* Seller details */}

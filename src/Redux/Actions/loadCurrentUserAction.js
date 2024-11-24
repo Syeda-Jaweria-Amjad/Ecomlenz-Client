@@ -94,10 +94,69 @@ const pauseSellerAction = (id) => async (dispatch) => {
     });
   }
 };
+
+const editSellerAction = (sellerId, sellerName) => async (dispatch) => {
+  try {
+    dispatch({ type: "EDIT_SELLER_REQUEST" });
+    const response = await fetch(
+      `http://localhost:8000/auth/edit-seller-info/${sellerId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ sellerName }),
+      }
+    );
+    const data = await response.json();
+    if (response.ok) {
+      dispatch({ type: "EDIT_SELLER_SUCCESS", payload: data.message });
+    } else {
+      dispatch({ type: "EDIT_SELLER_ERROR", payload: data.message });
+    }
+  } catch (error) {
+    dispatch({
+      type: "EDIT_SELLER_ERROR",
+      payload: error.message || "Server connection error",
+    });
+  }
+};
+
+const deleteSellerAction = (sellerId) => async (dispatch) => {
+  try {
+    dispatch({ type: "DELETE_SELLER_REQUEST" });
+    const response = await fetch(
+      `http://localhost:8000/auth/remove-seller/${sellerId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    
+    const data = await response.json();
+    if (response.ok) {
+      dispatch({ type: "DELETE_SELLER_SUCCESS", payload: data.message });
+    } else {
+      dispatch({ type: "DELETE_SELLER_ERROR", payload: data.message });
+    }
+  } catch (error) {
+    dispatch({
+      type: "DELETE_SELLER_ERROR",
+      payload: error.message || "Server connection error",
+    });
+  }
+};
+
 export {
   loadCurrentUserAction,
   clearErrorsAction,
   loadUserAllSellersAction,
   addSellerAction,
   pauseSellerAction,
+  editSellerAction,
+  deleteSellerAction
 };

@@ -6,6 +6,7 @@ import {
   pauseSellerReducer,
 } from "./Reducers/loadCurrentUserReducer";
 import { clearErrorsAction } from "./Actions/loadCurrentUserAction";
+import { editSellerReducer,deleteSellerReducer } from "./Reducers/loadCurrentUserReducer";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,8 @@ const store = configureStore({
     loadUserAllSellersReducer,
     addSellerReducer,
     pauseSellerReducer,
+    editSeller: editSellerReducer,
+    deleteSellerReducer
   },
 });
 

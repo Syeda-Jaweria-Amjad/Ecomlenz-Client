@@ -43,6 +43,7 @@ const loadUserAllSellersReducer = createReducer(
       });
   }
 );
+
 const addSellerReducer = createReducer(
   {
     addSellerLoading: false,
@@ -87,15 +88,74 @@ const pauseSellerReducer = createReducer(
         state.pauseSellerLoading = false;
         state.pauseSellerError = action.payload;
       })
-      .addCase("CLEAR_ERRROS", (state) => {
+      .addCase("CLEAR_ERRORS", (state) => {
         state.pauseSellerError = "";
         state.pauseSellerLoading = false;
       });
   }
 );
+
+const editSellerReducer = createReducer(
+  {
+    editSellerLoading: false,
+    editSellerMessage: null,
+    editSellerError: null,
+  },
+  (builder) => {
+    builder
+      .addCase("EDIT_SELLER_REQUEST", (state) => {
+        state.editSellerLoading = true;
+        state.editSellerMessage = null;
+        state.editSellerError = null;
+      })
+      .addCase("EDIT_SELLER_SUCCESS", (state, action) => {
+        state.editSellerLoading = false;
+        state.editSellerMessage = action.payload;
+      })
+      .addCase("EDIT_SELLER_ERROR", (state, action) => {
+        state.editSellerLoading = false;
+        state.editSellerError = action.payload;
+      })
+      .addCase("CLEAR_ERRORS", (state) => {
+        state.editSellerMessage = null;
+        state.editSellerError = null;
+      });
+  }
+);
+
+const deleteSellerReducer = createReducer(
+  {
+    deleteSellerLoading: false,
+    deleteSellerMessage: null,
+    deleteSellerError: null,
+  },
+  (builder) => {
+    builder
+      .addCase("DELETE_SELLER_REQUEST", (state) => {
+        state.deleteSellerLoading = true;
+        state.deleteSellerMessage = null;
+        state.deleteSellerError = null;
+      })
+      .addCase("DELETE_SELLER_SUCCESS", (state, action) => {
+        state.deleteSellerLoading = false;
+        state.deleteSellerMessage = action.payload;
+      })
+      .addCase("DELETE_SELLER_ERROR", (state, action) => {
+        state.deleteSellerLoading = false;
+        state.deleteSellerError = action.payload;
+      })
+      .addCase("CLEAR_ERRORS", (state) => {
+        state.deleteSellerMessage = null;
+        state.deleteSellerError = null;
+      });
+  }
+);
+
 export {
   loadCurrentUserReducer,
   loadUserAllSellersReducer,
   addSellerReducer,
   pauseSellerReducer,
+  editSellerReducer,
+  deleteSellerReducer
 };

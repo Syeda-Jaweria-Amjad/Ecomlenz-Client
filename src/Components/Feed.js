@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiSearch, FiFilter, FiCheck } from "react-icons/fi";
+import ProductCard from "./Product Card/ProductCard";
 
 function Feed() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -23,76 +24,6 @@ function Feed() {
       monthlySold: "<50",
       avgPrice: "$139.99",
       stockCount: 200,
-      daysAgo: 23,
-      image: "https://via.placeholder.com/100",
-    },
-    {
-      name: "FH Group Custom Fit Seat Covers for 2021-2024 Toyota Sienna, Seat Covers 2nd Row Set for Toyota Sienna 2021 2022 2023 2024, 7 Seater SUV Seat Covers, Solid Gray Neoprene, Toyota Accessories",
-      category: "Automotive",
-      id: "B0DFMW27H9",
-      storefront: "FBM",
-      buyBox: "$139.99",
-      offers: 0,
-      salesRank: "2M (1%)",
-      monthlySold: "<50",
-      avgPrice: "$139.99",
-      stockCount: 5,
-      daysAgo: 23,
-      image: "https://via.placeholder.com/100",
-    },
-    {
-      name: "FH Group Custom Fit Seat Covers for 2021-2024 Toyota Sienna, Seat Covers 2nd Row Set for Toyota Sienna 2021 2022 2023 2024, 7 Seater SUV Seat Covers, Solid Gray Neoprene, Toyota Accessories",
-      category: "Automotive",
-      id: "B0DFMW27H9",
-      storefront: "FBM",
-      buyBox: "$139.99",
-      offers: 0,
-      salesRank: "2M (1%)",
-      monthlySold: "<50",
-      avgPrice: "$139.99",
-      stockCount: 5,
-      daysAgo: 23,
-      image: "https://via.placeholder.com/100",
-    },
-    {
-      name: "FH Group Custom Fit Seat Covers for 2021-2024 Toyota Sienna, Seat Covers 2nd Row Set for Toyota Sienna 2021 2022 2023 2024, 7 Seater SUV Seat Covers, Solid Gray Neoprene, Toyota Accessories",
-      category: "Automotive",
-      id: "B0DFMW27H9",
-      storefront: "FBM",
-      buyBox: "$139.99",
-      offers: 0,
-      salesRank: "2M (1%)",
-      monthlySold: "<50",
-      avgPrice: "$139.99",
-      stockCount: 5,
-      daysAgo: 23,
-      image: "https://via.placeholder.com/100",
-    },
-    {
-      name: "FH Group Custom Fit Seat Covers for 2021-2024 Toyota Sienna, Seat Covers 2nd Row Set for Toyota Sienna 2021 2022 2023 2024, 7 Seater SUV Seat Covers, Solid Gray Neoprene, Toyota Accessories",
-      category: "Automotive",
-      id: "B0DFMW27H9",
-      storefront: "FBM",
-      buyBox: "$139.99",
-      offers: 0,
-      salesRank: "2M (1%)",
-      monthlySold: "<50",
-      avgPrice: "$139.99",
-      stockCount: 5,
-      daysAgo: 23,
-      image: "https://via.placeholder.com/100",
-    },
-    {
-      name: "FH Group Custom Fit Seat Covers for 2021-2024 Toyota Sienna, Seat Covers 2nd Row Set for Toyota Sienna 2021 2022 2023 2024, 7 Seater SUV Seat Covers, Solid Gray Neoprene, Toyota Accessories",
-      category: "Automotive",
-      id: "B0DFMW27H9",
-      storefront: "FBM",
-      buyBox: "$139.99",
-      offers: 0,
-      salesRank: "2M (1%)",
-      monthlySold: "<50",
-      avgPrice: "$139.99",
-      stockCount: 5,
       daysAgo: 23,
       image: "https://via.placeholder.com/100",
     },
@@ -199,29 +130,7 @@ function Feed() {
       </div>
 
       {/* Products */}
-      <div className="grid grid-cols-1 gap-4 overflow-y-auto px-3">
-        {products.map((product, index) => (
-          <div
-            key={index}
-            className="flex flex-col bg-white border rounded-md p-4 hover:shadow-md"
-          >
-            <div className="flex items-center">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-16 h-16 object-cover rounded-md"
-              />
-              <div className="ml-4">
-                <h3 className="text-gray-800 font-semibold text-sm sm:text-base">
-                  {product.name}
-                </h3>
-                <p className="text-sm text-gray-500">{product.category}</p>
-                <p className="text-xs text-gray-400">{product.id}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <ProductCard/>
 
       {/* Pagination */}
       <div

@@ -18,7 +18,6 @@ const EditProfileModal = () => {
 
   return (
     <div>
-      {/* Edit Profile button */}
       <div
         className="text-md font-semibold text-gray-700 hover:underline cursor-pointer"
         onClick={toggleModal}
